@@ -93,7 +93,7 @@ def mostrar_tabla(tabla):
     linea_horizontal = "|" + "-" * (sum(anchos) + len(anchos) - 1) + "|"
     iterador_tabla = iter(tabla)
 
-    print("-", linea_horizontal[1:-1], "-", sep="")
+    print("+", linea_horizontal[1:-1], "+", sep="")
     print("|", end="")
     print(*(campo.center(ancho)
             for ancho, campo in zip(anchos, next(iterador_tabla)) ),
@@ -106,7 +106,7 @@ def mostrar_tabla(tabla):
                 for ancho, campo in zip(anchos, fila)),
               sep="|", end="")
         print("|")
-    print("-", linea_horizontal[1:-1], "-", sep="", end="\n\n")
+    print("+", linea_horizontal[1:-1], "+", sep="", end="\n\n")
 
 if __name__ == "__main__":
     main()
