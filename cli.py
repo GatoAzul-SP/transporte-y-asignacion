@@ -90,15 +90,21 @@ def mostrar_tabla(tabla):
             anchos[j] = max(len(fila[j]), anchos[j])
     #plantillas = ["{:^%d}" % ancho for ancho in anchos]
     linea_horizontal = "|" + "-" * (sum(anchos) + len(anchos) - 1) + "|"
+    iterador_tabla = iter(tabla)
 
     print("-", linea_horizontal[1:-1], "-", sep="")
-    for fila in tabla:
+    print("|", end="")
+    print(*(campo.center(ancho)
+            for ancho, campo in zip(anchos, next(iterador_tabla)) ),
+          sep="|", end="")
+    print("|")
+    for fila in iterador_tabla:
+        print(linea_horizontal)
         print("|", end="")
         print(*(campo.center(ancho)
                 for ancho, campo in zip(anchos, fila)),
               sep="|", end="")
         print("|")
-        #print(linea_horizontal)
     print("-", linea_horizontal[1:-1], "-", sep="", end="\n\n")
 
 if __name__ == "__main__":
