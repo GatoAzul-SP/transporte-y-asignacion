@@ -1,6 +1,5 @@
 # Método húngaro
-# Autor: Santiago Pinto             Fecha: 2024-07-13
-
+# Autor: Andrés Gallegos y Santiago Pinto                Fecha: 2024-07-17
 INFINITO = float("inf")
 
 def hungaro(matriz_costos, disponibilidad_uniforme=True):
@@ -235,3 +234,49 @@ def reasignar(matriz_ceros, posicion_cero, columnas_marcadas):
 def mostrar_matriz(matriz):
     for fila in matriz:
         print("[", *("%5d" % elemento for elemento in fila), "]")
+
+
+### Funcion principal para poder ejecutar el programa
+def main():
+    while True:
+        print("+------------------------------------+")
+        print("| Método húngaro                     |")
+        print("| 1. Ingresar datos y ejecutar       |")
+        print("| 2. Salir                           |")
+        print("+------------------------------------+\n")
+        option = input(">>> Ingrese la opcion que desea: ")
+        while option not in ["1", "2"]:
+            option = input(">>> Ingrese una opcion valida: ")
+
+        ### Ejecutar el programa
+        if option == "1":
+            print("\n>>> CARGA DE DATOS...")
+
+            ### Definiendo el tamaño de la matriz
+            size = input(">>> Ingrese el tamaño de la matriz: ")
+            while size == "" or not size.isdigit():
+                size = input(">>> Ingrese un tamaño válido de la matriz: ")
+
+            ### Llenar los datos de la matriz de costos
+            print(">>> Ingrese la matriz de costos: ")
+            matriz_costos = []
+
+            ### Llenando la matriz de costos
+            for i in range(int(size)):
+                fila = []
+                for j in range(int(size)):
+                    costo = input(f">>> Ingrese el costo de la fila {i+1} y columna {j+1}: ")
+                    while costo == "" or not costo.isdigit():
+                        costo = input(f">>> Ingrese un costo válido de la fila {i+1} y columna {j+1}: ")
+                    fila.append(int(costo))
+                matriz_costos.append(fila)
+
+            ## Ejecutar el método húngaro
+            asignaciones = hungaro(matriz_costos)
+            print("\n>>> Resultado de las asignaciones:\n")
+            print(asignaciones)
+
+        ### Salir del programa
+        else:
+            break
+main()
