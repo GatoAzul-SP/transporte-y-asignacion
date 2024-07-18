@@ -6,6 +6,7 @@
 import sys
 import metodo_hungaro as mh
 
+_MSG_ERROR_OPCION_INCORRECTA = "Opción incorrecta."
 funcion_estado = None
 
 def main():
@@ -34,7 +35,7 @@ def inicio():
     elif opcion == "0":
         funcion_estado = None
     else:
-        print("Opción incorrecta.", file=sys.stderr)
+        print(_MSG_ERROR_OPCION_INCORRECTA, file=sys.stderr)
 
 def transporte():
     global funcion_estado
@@ -44,21 +45,31 @@ def transporte():
 def asignacion():
     global funcion_estado
     matriz_costos = []
-    entrada = " "
+
+    while True:
+        print("",
+          "(0) Minimizar",
+          "(1) Maximizar",
+          sep="\n")
+        minimizar = input("Indique la optimización a realizar con 0 o 1: ")
+
+        if minimizar == "0":
+            minimizar = True
+        elif minimizar == "1":
+            minimizar = False
+        else:
+            print(_MSG_ERROR_OPCION_INCORRECTA, file=sys.stderr)
+            continue
+        break
+
     print("Introduzca a continuación los elementos de la matriz de costos,"
           " fila por fila, separando elementos con espacios, e indicando"
           " el fin de los datos con una fila vacía.")
-    try:
-        while True:
-            entrada = input("Fila: ").replace(",", ".")
-            if entrada == "":
-                break
-            matriz_costos.append(entrada.split())
-    except:
-        print("Hay problemas con los datos introducidos.  Intente nuevamente.",
-              file=sys.stderr)
-        funcion_estado = inicio
-        return
+    while True:
+        entrada = input("Fila: ").replace(",", ".")
+        if entrada == "":
+            break
+        matriz_costos.append(entrada.split())
 
     if len(matriz_costos) == 0:
         print("No se introdujeron datos.", file=sys.stderr)
