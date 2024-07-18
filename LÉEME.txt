@@ -1,0 +1,3 @@
+Se recomienda ejecutar cli.py para utilizar el programa
+
+
