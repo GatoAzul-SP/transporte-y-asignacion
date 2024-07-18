@@ -62,6 +62,8 @@ def asignacion():
 
     if len(matriz_costos) == 0:
         print("No se introdujeron datos.", file=sys.stderr)
+        funcion_estado = inicio
+        return
 
     matriz_costos = [list(map(float, fila)) for fila in matriz_costos]
     try:
