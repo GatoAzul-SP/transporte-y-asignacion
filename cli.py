@@ -76,7 +76,6 @@ def asignacion():
         funcion_estado = inicio
         return
 
-    matriz_costos = [list(map(float, fila)) for fila in matriz_costos]
     try:
         asignaciones = mh.hungaro(matriz_costos, minimizar, funcion_pasos=True)
     except ValueError as e:

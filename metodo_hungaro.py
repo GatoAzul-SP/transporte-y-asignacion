@@ -179,7 +179,7 @@ def validar_matriz(matriz_costos, disponibilidad_uniforme=True):
             cant_elementos += len(fila)
         for costo in fila:
             try:
-                float(costo)
+                costo = float(costo)
             except (TypeError, ValueError):
                 raise ValueError("Los elementos no son números")
             if costo < 0:
@@ -188,9 +188,14 @@ def validar_matriz(matriz_costos, disponibilidad_uniforme=True):
         raise ValueError(ERROR_MATRIZ_VACIA)
 
 def procesar_matriz(matriz_costos, minimizar, disponibilidad_uniforme=True):
-    try:
-        matriz_costos=[[int(costo) for costo in fila] for fila in matriz_costos]
-    except ValueError:
+    falta_conversion = True
+    if isinstance(matriz_costos[0][0], (str, bytes, bytearray)):
+        try:
+            matriz_costos=[[int(costo) for costo in fila] for fila in matriz_costos]
+            falta_conversion = False
+        except ValueError:
+            pass
+    if falta_conversion:
         matriz_costos = \
                   [[float(costo) for costo in fila] for fila in matriz_costos]
     cant_filas = len(matriz_costos)
