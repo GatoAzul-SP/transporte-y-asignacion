@@ -382,7 +382,7 @@ def main():
                 matriz_costos.append(fila)
 
             ## Ejecutar el método húngaro
-            asignaciones = hungaro(matriz_costos)
+            asignaciones = hungaro(matriz_costos, funcion_pasos=True)
             print("\n>>> Resultado de las asignaciones:\n")
             print(asignaciones)
 
