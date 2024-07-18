@@ -5,6 +5,7 @@
 
 import sys
 import metodo_hungaro as mh
+import transporte as trans
 
 _MSG_ERROR_OPCION_INCORRECTA = "Opción incorrecta."
 funcion_estado = None
@@ -39,7 +40,7 @@ def inicio():
 
 def transporte():
     global funcion_estado
-    print("Función no disponible.", file=sys.stderr)
+    trans.main()
     funcion_estado = inicio
 
 def asignacion():
