@@ -67,7 +67,7 @@ def asignacion():
 
     matriz_costos = [list(map(float, fila)) for fila in matriz_costos]
     try:
-        asignaciones = mh.hungaro(matriz_costos, True)
+        asignaciones = mh.hungaro(matriz_costos, minimizar, funcion_pasos=True)
     except ValueError as e:
         print("Los datos introducidos son inválidos:",
               "\t" + e.args[0],
@@ -75,10 +75,13 @@ def asignacion():
         funcion_estado = inicio
         return
 
-    matriz_costos = mh.procesar_matriz(matriz_costos)
-    salida = [["Centro", "Ruta"]]
-    salida += ([str(par[0] + 1), str(par[1] + 1)] for par in asignaciones)
-    salida += [["Total", str(sum(matriz_costos[i][j] for i, j in asignaciones))]]
+    matriz_costos = mh.procesar_matriz(matriz_costos, True)
+    salida = [["Centro", "Ruta", "Costo"]]
+    salida += ([str(par[0] + 1), str(par[1] + 1),
+                str(matriz_costos[par[0]][par[1]]) ]
+               for par in asignaciones )
+    salida += [["Total", "",
+                str(sum(matriz_costos[i][j] for i, j in asignaciones)) ]]
     mostrar_tabla(salida)
 
     funcion_estado = inicio

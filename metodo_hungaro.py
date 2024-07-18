@@ -11,7 +11,8 @@ PASO_INICIO_MARCADO = 5
 PASO_FIN_MARCADO = 6
 PASO_ASIGNACION_FINAL = 7
 
-def hungaro(matriz_costos, funcion_pasos=None, disponibilidad_uniforme=True):
+def hungaro(matriz_costos, minimizar=True, funcion_pasos=None,
+            disponibilidad_uniforme=True):
     """Calcula la asignación óptima con el método húngaro.
 
     La función acepta matrices de costo cuadradas y rectangulares; en el último
@@ -66,7 +67,8 @@ def hungaro(matriz_costos, funcion_pasos=None, disponibilidad_uniforme=True):
         funcion_pasos = mostrar_pasos
 
     validar_matriz(matriz_costos, disponibilidad_uniforme)
-    matriz_costos = procesar_matriz(matriz_costos, disponibilidad_uniforme)
+    matriz_costos = procesar_matriz(matriz_costos, minimizar,
+                                    disponibilidad_uniforme)
     if funcion_pasos is not None:
         argumentos_pasos = [matriz_costos, None, None, None, None]
         funcion_pasos(*argumentos_pasos, PASO_PROCESAR)
@@ -185,7 +187,7 @@ def validar_matriz(matriz_costos, disponibilidad_uniforme=True):
     if not disponibilidad_uniforme and cant_elementos == 0:
         raise ValueError(ERROR_MATRIZ_VACIA)
 
-def procesar_matriz(matriz_costos, disponibilidad_uniforme=True):
+def procesar_matriz(matriz_costos, minimizar, disponibilidad_uniforme=True):
     try:
         matriz_costos=[[int(costo) for costo in fila] for fila in matriz_costos]
     except ValueError:
@@ -213,6 +215,11 @@ def procesar_matriz(matriz_costos, disponibilidad_uniforme=True):
                     fila.extend([0] * faltante)
     else:
         matriz_costos.extend([[0] * orden for i in range(orden - cant_filas)])
+    if not minimizar:
+        maximo = max(map(max, matriz_costos))
+        for fila in matriz_costos:
+            for j in range(orden):
+                fila[j] = maximo - fila[j]
     return matriz_costos
 
 def asignar(matriz_costos, columnas_excluidas=None):
